@@ -1,11 +1,14 @@
 package ru.flendger.schoollib2.repositories.operation;
 
-import ru.flendger.schoollib2.model.operation.Operation;
+import org.springframework.data.repository.NoRepositoryBean;
+import ru.flendger.schoollib2.model.DbObjectNonDeleted;
 import ru.flendger.schoollib2.repositories.DbNonDeletedRepository;
 
 import java.util.Optional;
 
-public interface OperationRepository<T extends Operation> extends DbNonDeletedRepository<T> {
+@NoRepositoryBean
+public interface OperationRepository<T extends DbObjectNonDeleted> extends DbNonDeletedRepository<T> {
     Optional<T> findByNumber(Integer number);
+
     Optional<T> findTopByOrderByNumberDesc();
 }

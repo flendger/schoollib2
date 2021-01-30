@@ -27,10 +27,10 @@ public class Invention implements Operation{
     @Column(name = "docnum")
     private Integer number;
 
-    @Column(name = "isAccepted")
+    @Column(name = "is_accepted")
     private boolean isAccepted;
 
-    @Column(name = "isDeleted")
+    @Column(name = "is_deleted")
     private boolean isDeleted;
 
     @Column(name = "comment")
