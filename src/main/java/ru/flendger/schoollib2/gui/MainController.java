@@ -4,13 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.flendger.schoollib2.repositories.catalog.*;
+import ru.flendger.schoollib2.repositories.operation.InventionRepository;
 
 @Component
 @RequiredArgsConstructor
 public class MainController {
 
-    private final SubjectRepository repository;
+    private final InventionRepository repository;
 
     @FXML
     public TextArea textField;
@@ -23,7 +23,10 @@ public class MainController {
         repository.findAllByIsDeleted(true).forEach(item -> sb.append(item).append("\n"));
         sb.append("\n");
 
-        sb.append(repository.findByCode(1).orElse(null));
+        sb.append(repository.findByNumber(1).orElse(null));
+        sb.append("\n");
+
+        sb.append(repository.findTopByOrderByNumberDesc().orElse(null));
         textField.setText(sb.toString());
     }
 }
