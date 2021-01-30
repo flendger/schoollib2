@@ -1,13 +1,14 @@
 package ru.flendger.schoollib2;
 
-import org.springframework.boot.SpringApplication;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.flendger.schoollib2.gui.ClientFxApp;
 
 @SpringBootApplication
 public class Schoollib2Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Schoollib2Application.class, args);
+		Application.launch(ClientFxApp.class, args);
 	}
 
 }
