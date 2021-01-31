@@ -2,10 +2,45 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.flendger.schoollib2.gui.MainController">
-   <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#getProducts" text="Button" />
-      <TextArea fx:id="textField" editable="false" layoutX="8.0" layoutY="47.0" prefHeight="350.0" prefWidth="586.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="47.0" />
-   </children>
-</AnchorPane>
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="630.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.flendger.schoollib2.gui.MainController">
+    <MenuBar>
+        <Menu text="Файл">
+            <MenuItem onAction="#btnExitAction" text="Выйти из программы" />
+        </Menu>
+    </MenuBar>
+    <SplitPane dividerPositions="0.2" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER">
+            <Label text="Команды" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="22.0" />
+                </font>
+            </Label>
+            <TreeView fx:id="cmdTree" VBox.vgrow="ALWAYS">
+                <TreeItem value="Библиотека" expanded="true">
+                    <children>
+                        <TreeItem value="Справочники" expanded="true">
+                            <children>
+                                <TreeItem value="Книги" fx:id="cmdBooks"/>
+                                <TreeItem value="Типы книг" fx:id="cmdBookTypes"/>
+                                <TreeItem value="Владельцы" fx:id="cmdOwners"/>
+                                <TreeItem value="Издательства" fx:id="cmdPublishers" />
+                                <TreeItem value="Предметы" fx:id="cmdSubjects"/>
+                                <TreeItem value="Места хранения" fx:id="cmdLocations"/>
+                                <TreeItem value="Типы мест хранения" fx:id="cmdLocationTypes"/>
+                                <TreeItem value="Ответственные" fx:id="cmdPeople"/>
+                            </children>
+                        </TreeItem>
+                        <TreeItem value="Операции" expanded="true">
+                            <children>
+                                <TreeItem value="Инвентаризация" fx:id="cmdInvention"/>
+                            </children>
+                        </TreeItem>
+                    </children>
+                </TreeItem>
+        </TreeView>
+         </VBox>
+        <TabPane fx:id="tabPane" />
+    </SplitPane>
+</VBox>

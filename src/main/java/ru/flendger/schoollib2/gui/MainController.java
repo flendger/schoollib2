@@ -1,30 +1,97 @@
 package ru.flendger.schoollib2.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import lombok.RequiredArgsConstructor;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import org.springframework.stereotype.Component;
-import ru.flendger.schoollib2.services.catalog.BookService;
+import ru.flendger.schoollib2.gui.utils.ListFormUtils;
+import ru.flendger.schoollib2.model.catalog.*;
+import ru.flendger.schoollib2.model.operation.Invention;
+
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 @Component
-@RequiredArgsConstructor
-public class MainController {
-
-    private final BookService service;
+public class MainController implements Initializable {
 
     @FXML
-    public TextArea textField;
+    TreeItem<String> cmdBookTypes, cmdBooks, cmdLocations,
+            cmdOwners, cmdPublishers, cmdSubjects, cmdLocationTypes, cmdPeople,
+            cmdInvention;
 
-    public void getProducts() {
-        StringBuilder sb = new StringBuilder();
-        service.findAll().forEach(item -> sb.append(item).append("\n"));
-        sb.append("\n");
+    @FXML
+    TabPane tabPane;
 
-        service.findAllExcludeDeleted().forEach(item -> sb.append(item).append("\n"));
-        sb.append("\n");
+    @FXML
+    TreeView<String> cmdTree;
 
-        sb.append(service.findByCode(1).orElse(null));
-//        sb.append(service.findByNumber(1).orElse(null));
-        textField.setText(sb.toString());
+
+    public void btnExitAction() {
+        Platform.exit();
+    }
+
+    public void cmdItemClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 2) {
+            TreeItem<String> itemClicked = ((TreeCell<String>) mouseEvent.getSource()).getTreeItem();
+            if (!itemClicked.isLeaf()) return;
+
+            String id = itemClicked.getValue();
+
+            Optional<Tab> res = tabPane.getTabs().stream()
+                    .filter(arg -> arg.getId().equals(id))
+                    .findAny();
+            if (res.isPresent()) {
+                tabPane.getSelectionModel().select(res.get());
+                return;
+            }
+
+            Parent root = null;
+            if (cmdBooks.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Book.class);
+            } else if (cmdBookTypes.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(BookType.class);
+            } else if (cmdLocations.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Location.class);
+            } else if (cmdOwners.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Owner.class);
+            } else if (cmdPublishers.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Publisher.class);
+            } else if (cmdPeople.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Person.class);
+            } else if (cmdSubjects.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Subject.class);
+            } else if (cmdLocationTypes.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(LocationType.class);
+            } else if (cmdInvention.equals(itemClicked)) {
+                root = ListFormUtils.getRoot(Invention.class);
+            }
+            Tab tab = new Tab(id, root);
+            tab.setId(id);
+            tabPane.getTabs().add(tab);
+            tabPane.getSelectionModel().select(tab);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        cmdTree.setCellFactory(arg -> {
+            TreeCell<String> cell = new TreeCell<>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(item);
+                    }
+                }
+            };
+            cell.setOnMouseClicked(this::cmdItemClicked);
+            return cell;
+        });
     }
 }
