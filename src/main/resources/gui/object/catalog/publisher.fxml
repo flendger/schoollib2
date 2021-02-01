@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="obForm" prefHeight="110.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.flendger.schoollib2.gui.forms.object.catalog.PublisherController">
+    <bottom>
+        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnCancelClicked" prefWidth="71.0" text="Отмена" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnOkClicked" prefWidth="71.0" text="OK" />
+        </ToolBar>
+    </bottom>
+    <center>
+        <HBox alignment="CENTER" BorderPane.alignment="TOP_CENTER">
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </BorderPane.margin>
+            <GridPane HBox.hgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="130.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                </rowConstraints>
+                <Label minWidth="130.0" text="Код:" GridPane.hgrow="NEVER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label minWidth="130.0" text="Наименование:" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="codeField" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+                <TextField fx:id="nameField" minWidth="335.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+            </GridPane>
+        </HBox>
+    </center>
+</BorderPane>

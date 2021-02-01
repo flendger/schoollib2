@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import ru.flendger.schoollib2.gui.elements.IntegerSpinner?>
+<BorderPane fx:id="obForm" prefHeight="146.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.flendger.schoollib2.gui.forms.object.operation.item.InventionItemController">
+    <bottom>
+        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnCancelClicked" prefWidth="71.0"
+                    text="Отмена"/>
+            <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnOkClicked" prefWidth="71.0" text="OK"/>
+        </ToolBar>
+    </bottom>
+    <center>
+        <HBox alignment="CENTER" BorderPane.alignment="TOP_CENTER">
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </BorderPane.margin>
+            <GridPane alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="145.0"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="120.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+                </rowConstraints>
+                <Label minWidth="145.0" text="Номер строки:" GridPane.hgrow="NEVER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="10.0" layoutY="45.0" minWidth="145.0" text="Книга:" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="10.0" layoutY="75.0" minWidth="145.0" text="Количество:" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="rowNumField" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0"
+                           GridPane.columnIndex="1" GridPane.hgrow="NEVER"/>
+                <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets top="2.0"/>
+                    </GridPane.margin>
+                    <TextField fx:id="bookField" editable="false" HBox.hgrow="ALWAYS"/>
+                    <Button mnemonicParsing="false" onAction="#btnSelectBookClicked" text="..."/>
+                </HBox>
+                <IntegerSpinner fx:id="quantityField" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            </GridPane>
+        </HBox>
+    </center>
+</BorderPane>

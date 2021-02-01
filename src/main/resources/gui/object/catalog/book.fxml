@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import ru.flendger.schoollib2.gui.elements.IntegerSpinner?>
+<BorderPane fx:id="obForm" prefHeight="382.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.flendger.schoollib2.gui.forms.object.catalog.BookController">
+    <bottom>
+        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnCancelClicked" prefWidth="71.0" text="Отмена" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnOkClicked" prefWidth="71.0" text="OK" />
+        </ToolBar>
+    </bottom>
+    <center>
+        <HBox alignment="CENTER" BorderPane.alignment="TOP_CENTER">
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </BorderPane.margin>
+            <GridPane alignment="TOP_CENTER" prefHeight="300.0" prefWidth="479.0" HBox.hgrow="ALWAYS">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="145.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="120.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                </rowConstraints>
+                <Label minWidth="145.0" text="Код:" GridPane.hgrow="NEVER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label minWidth="145.0" text="Наименование:" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="10.0" layoutY="45.0" minWidth="145.0" text="Тип:" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="10.0" layoutY="75.0" minWidth="145.0" text="Издательство:" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="codeField" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets top="2.0" />
+                    </GridPane.margin>
+                    <TextField fx:id="bookTypeField" editable="false" HBox.hgrow="ALWAYS" />
+                    <Button mnemonicParsing="false" onAction="#btnSelectBookTypeClicked" text="..." />
+                </HBox>
+                <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets top="2.0" />
+                    </GridPane.margin>
+                    <TextField fx:id="publisherField" editable="false" HBox.hgrow="ALWAYS" />
+                    <Button mnemonicParsing="false" onAction="#btnSelectPublisherClicked" text="..." />
+                </HBox>
+            <Label layoutX="10.0" layoutY="45.0" minWidth="145.0" text="Автор:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="authorField" layoutX="155.0" layoutY="42.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label layoutX="10.0" layoutY="105.0" minWidth="145.0" text="Год издания:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <IntegerSpinner fx:id="yearField" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="10.0" layoutY="165.0" minWidth="145.0" text="Цена:" GridPane.rowIndex="6">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+                <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <GridPane.margin>
+                        <Insets top="2.0" />
+                    </GridPane.margin>
+                    <IntegerSpinner fx:id="priceRubField" editable="true" prefWidth="131.0" />
+                    <Label text="руб." />
+                    <IntegerSpinner fx:id="priceCentField" editable="true" prefWidth="76.0" />
+                    <Label text="коп." />
+                </HBox>
+            <Label layoutX="10.0" layoutY="195.0" minWidth="145.0" text="Класс:" GridPane.rowIndex="7">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+                <HBox alignment="CENTER_LEFT" layoutX="155.0" layoutY="192.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <Label text="с" />
+                    <IntegerSpinner fx:id="classFromField" editable="true" prefWidth="76.0" />
+                    <Label text="по" />
+                    <IntegerSpinner fx:id="classToField" editable="true" prefWidth="76.0" />
+                </HBox>
+            <Label layoutX="10.0" layoutY="225.0" minWidth="145.0" text="Владелец:" GridPane.rowIndex="9">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+                <HBox layoutX="155.0" layoutY="162.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                    <GridPane.margin>
+                        <Insets top="2.0" />
+                    </GridPane.margin>
+                    <TextField fx:id="ownerField" editable="false" HBox.hgrow="ALWAYS" />
+                    <Button mnemonicParsing="false" onAction="#btnSelectOwnerClicked" text="..." />
+                </HBox>
+            <Label layoutX="10.0" layoutY="255.0" minWidth="145.0" text="Собственность:" GridPane.rowIndex="10">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="ownershipBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label layoutX="10.0" layoutY="285.0" minWidth="145.0" text="Предмет:" GridPane.rowIndex="8">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <HBox layoutX="155.0" layoutY="282.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <children>
+                  <TextField fx:id="subjectField" editable="false" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#btnSelectSubjectClicked" text="..." />
+               </children>
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </HBox>
+            </GridPane>
+        </HBox>
+    </center>
+</BorderPane>

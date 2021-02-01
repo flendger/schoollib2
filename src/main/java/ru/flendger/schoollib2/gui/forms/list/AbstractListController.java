@@ -23,6 +23,8 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
     protected String title;
     @Autowired
     protected CrudNonDeletedObjectsService<O> service;
+    @Autowired
+    protected FormUtils objectFormLoader;
     protected Stage stage;
     protected ResultNotifier resultNotifier;
     protected boolean selectedMode;
@@ -98,7 +100,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
                 //  fill formId when getDbObjectForm: id = class + id
                 //  ??? where should store info about opened and closed forms ???
 
-                FormUtils.getDbObjectForm(object, getWindow()).open(dataTable::refresh);
+                objectFormLoader.getDbObjectForm(object, getWindow()).open(dataTable::refresh);
             }
         } catch (IOException e) {
             e.printStackTrace();

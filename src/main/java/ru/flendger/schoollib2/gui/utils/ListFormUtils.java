@@ -40,15 +40,15 @@ public class ListFormUtils {
 
 
     private FXMLLoader getLoader(Class<? extends DbObject> clazz) {
-        return new FXMLLoader(FormUtils.class.
+        FXMLLoader fxmlLoader = new FXMLLoader(FormUtils.class.
                 getResource(resourceMap.get(clazz)));
+        fxmlLoader.setControllerFactory(applicationContext::getBean);
+        return fxmlLoader;
     }
 
     public Parent getRoot(Class<? extends DbObject> clazz) {
         try {
-            FXMLLoader fxmlLoader = getLoader(clazz);
-            fxmlLoader.setControllerFactory(applicationContext::getBean);
-            return fxmlLoader.load();
+            return getLoader(clazz).load();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -57,7 +57,6 @@ public class ListFormUtils {
 
     public <O extends Catalog> ListForm<O> getCatalogListForm(Class<O> clazz, Window owner) throws IOException {
         FXMLLoader fxmlLoader = getLoader(clazz);
-        fxmlLoader.setControllerFactory(applicationContext::getBean);
         Parent root = fxmlLoader.load();
         ListForm<O> ctrl = fxmlLoader.getController();
         Stage stage = new Stage();

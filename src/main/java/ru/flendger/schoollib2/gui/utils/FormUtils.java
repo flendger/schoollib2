@@ -5,34 +5,42 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.gui.forms.object.DbObjectForm;
 import ru.flendger.schoollib2.model.DbObject;
 import ru.flendger.schoollib2.model.catalog.*;
 import ru.flendger.schoollib2.model.operation.Invention;
 import ru.flendger.schoollib2.model.operation.item.InventionItem;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashMap;
 
+@Component
+@RequiredArgsConstructor
 public class FormUtils {
+    private final ApplicationContext applicationContext;
 
-    private final static HashMap<Class<? extends DbObject>, String> resourceMap;
+    private HashMap<Class<? extends DbObject>, String> resourceMap;
 
-    static {
+    @PostConstruct
+    private void init() {
         resourceMap = new HashMap<>();
-        resourceMap.put(BookType.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/bookType.fxml");
-        resourceMap.put(LocationType.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/locationType.fxml");
-        resourceMap.put(Owner.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/owner.fxml");
-        resourceMap.put(Publisher.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/publisher.fxml");
-        resourceMap.put(Subject.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/subject.fxml");
-        resourceMap.put(Person.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/person.fxml");
-        resourceMap.put(Location.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/location.fxml");
-        resourceMap.put(Book.class, "/ru/flendger/schoollib/fxgui/objectForms/catalogs/book.fxml");
-        resourceMap.put(Invention.class, "/ru/flendger/schoollib/fxgui/objectForms/operations/invention.fxml");
-        resourceMap.put(InventionItem.class, "/ru/flendger/schoollib/fxgui/objectForms/operations/items/inventionItem.fxml");
+        resourceMap.put(Book.class, "/gui/object/catalog/book.fxml");
+        resourceMap.put(BookType.class, "/gui/object/catalog/book_type.fxml");
+        resourceMap.put(Location.class, "/gui/object/catalog/location.fxml");
+        resourceMap.put(LocationType.class, "/gui/object/catalog/location_type.fxml");
+        resourceMap.put(Owner.class, "/gui/object/catalog/owner.fxml");
+        resourceMap.put(Person.class, "/gui/object/catalog/person.fxml");
+        resourceMap.put(Publisher.class, "/gui/object/catalog/publisher.fxml");
+        resourceMap.put(Subject.class, "/gui/object/catalog/subject.fxml");
+        resourceMap.put(Invention.class, "/gui/object/operation/invention.fxml");
+        resourceMap.put(InventionItem.class, "/gui/object/operation/item/invention_item.fxml");
     }
 
-    private static <O extends DbObject> DbObjectForm<O> getForm(FXMLLoader fxmlLoader, O object, Window owner) throws IOException {
+    private <O extends DbObject> DbObjectForm<O> getForm(FXMLLoader fxmlLoader, O object, Window owner) throws IOException {
         Parent root = fxmlLoader.load();
         DbObjectForm<O> ctrl = fxmlLoader.getController();
         Stage stage = new Stage();
@@ -43,9 +51,10 @@ public class FormUtils {
         return ctrl;
     }
 
-    public static <O extends DbObject> DbObjectForm<O> getDbObjectForm(O object, Window owner) throws IOException {
+    public <O extends DbObject> DbObjectForm<O> getDbObjectForm(O object, Window owner) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FormUtils.class.
                 getResource(resourceMap.get(object.getClass())));
+        fxmlLoader.setControllerFactory(applicationContext::getBean);
         return getForm(fxmlLoader, object, owner);
     }
 }
