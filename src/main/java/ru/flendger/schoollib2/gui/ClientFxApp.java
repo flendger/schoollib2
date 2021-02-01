@@ -12,8 +12,8 @@ public class ClientFxApp extends Application {
     private ConfigurableApplicationContext applicationContext;
 
     @Override
-    public void start(Stage primaryStage) {
-        applicationContext.publishEvent(new StageReadyEvent(primaryStage));
+    public void start(Stage stage) {
+        applicationContext.publishEvent(new StageReadyEvent(stage));
     }
 
     @Override

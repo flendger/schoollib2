@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox fx:id="listForm" prefHeight="528.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.flendger.schoollib2.gui.forms.list.catalog.LocationListController">
+    <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <Button mnemonicParsing="false" onAction="#openCurrentElement" text="Открыть" />
+        <Button mnemonicParsing="false" onAction="#addNewElement" text="Добавить" fx:id="addButton"/>
+        <Button mnemonicParsing="false" onAction="#deleteCurrentElement" text="Удалить" fx:id="deleteButton"/>
+        <Button mnemonicParsing="false" onAction="#updateList" text="Обновить" />
+    </ToolBar>
+    <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="dataTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="codeCol" maxWidth="131.0" minWidth="100.0" prefWidth="131.0" text="Код" />
+                    <TableColumn fx:id="nameCol" prefWidth="357.59996032714844" text="Наименование" />
+                    <TableColumn fx:id="personCol" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="Ответственный" />
+                    <TableColumn fx:id="locationTypeCol" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="Тип" />
+                </columns>
+            <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            </TableView>
+        </VBox>
+    </ScrollPane>
+</VBox>

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.gui.utils.ListFormUtils;
 import ru.flendger.schoollib2.model.catalog.*;
@@ -16,7 +17,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Component
+@RequiredArgsConstructor
 public class MainController implements Initializable {
+
+    private final ListFormUtils listFormLoader;
 
     @FXML
     TreeItem<String> cmdBookTypes, cmdBooks, cmdLocations,
@@ -51,23 +55,23 @@ public class MainController implements Initializable {
 
             Parent root = null;
             if (cmdBooks.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Book.class);
+                root = listFormLoader.getRoot(Book.class);
             } else if (cmdBookTypes.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(BookType.class);
+                root = listFormLoader.getRoot(BookType.class);
             } else if (cmdLocations.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Location.class);
+                root = listFormLoader.getRoot(Location.class);
             } else if (cmdOwners.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Owner.class);
+                root = listFormLoader.getRoot(Owner.class);
             } else if (cmdPublishers.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Publisher.class);
+                root = listFormLoader.getRoot(Publisher.class);
             } else if (cmdPeople.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Person.class);
+                root = listFormLoader.getRoot(Person.class);
             } else if (cmdSubjects.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Subject.class);
+                root = listFormLoader.getRoot(Subject.class);
             } else if (cmdLocationTypes.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(LocationType.class);
+                root = listFormLoader.getRoot(LocationType.class);
             } else if (cmdInvention.equals(itemClicked)) {
-                root = ListFormUtils.getRoot(Invention.class);
+                root = listFormLoader.getRoot(Invention.class);
             }
             Tab tab = new Tab(id, root);
             tab.setId(id);
