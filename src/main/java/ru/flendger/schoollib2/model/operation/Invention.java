@@ -2,10 +2,8 @@ package ru.flendger.schoollib2.model.operation;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import ru.flendger.schoollib2.model.catalog.Location;
 import ru.flendger.schoollib2.model.operation.item.InventionItem;
-import ru.flendger.schoollib2.model.operation.item.OperationItem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +13,7 @@ import java.util.List;
 @Table(name = "doc_invention")
 @Data
 @NoArgsConstructor
-public class Invention implements Operation{
+public class Invention implements Operation<InventionItem>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -40,14 +38,17 @@ public class Invention implements Operation{
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(mappedBy = "document", fetch = FetchType.EAGER, orphanRemoval = true)
-    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InventionItem> items;
 
-    @Override
-    public List<? extends OperationItem<? extends Operation>> getOperationItems() {
-        return getItems();
-    }
+//    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @JoinTable(
+//            name = "invention_location_storage",
+//            joinColumns = @JoinColumn(name = "doc_id"),
+//            inverseJoinColumns = @JoinColumn(name = "storage_id")
+//    )
+//    private List<LocationStorageEntity> locationStorageEntities;
 
     @Override
     public String toString() {
@@ -57,7 +58,7 @@ public class Invention implements Operation{
                 ", number=" + number +
                 ", isAccepted=" + isAccepted +
                 ", isDeleted=" + isDeleted +
-                ", Rows=" + items.size() +
+//                ", Rows=" + items.size() +
                 ", comment='" + comment + '\'' +
                 '}';
     }

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.gui.elements.IntegerSpinner;
 import ru.flendger.schoollib2.model.catalog.*;
+import ru.flendger.schoollib2.services.catalog.BookService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class BookController extends AbstractCatalogController<Book, BorderPane> implements Initializable {
+public class BookController extends AbstractCatalogController<Book, BorderPane, BookService> implements Initializable {
 
     @FXML
     public TextField codeField;
@@ -55,7 +56,10 @@ public class BookController extends AbstractCatalogController<Book, BorderPane> 
         priceCentField.setBounds(0, 99, 0);
     }
 
-    protected void fillForm() {
+    @Override
+    protected void fillForm() throws Throwable {
+        super.fillForm();
+
         codeField.setText(String.valueOf(object.getCode()));
         nameField.setText(object.getName());
         authorField.setText(object.getAuthor());

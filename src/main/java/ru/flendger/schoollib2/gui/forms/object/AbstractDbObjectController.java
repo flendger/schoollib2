@@ -12,11 +12,11 @@ import ru.flendger.schoollib2.gui.utils.ListFormUtils;
 import ru.flendger.schoollib2.model.DbObjectNonDeleted;
 import ru.flendger.schoollib2.services.CrudNonDeletedObjectsService;
 
-public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V extends Pane> implements DbObjectForm<O> {
+public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V extends Pane, S extends CrudNonDeletedObjectsService<O>> implements DbObjectForm<O> {
 
     protected String title;
     @Autowired
-    protected CrudNonDeletedObjectsService<O> service;
+    protected S service;
     @Autowired
     protected ListFormUtils listFormLoader;
 
@@ -24,7 +24,7 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
     protected Stage stage;
     protected boolean isModified = false;
     protected UpdateNotifier updateNotifier;
-    protected ResultNotifier resultNotifier;
+    protected ResultNotifier<O> resultNotifier;
 
     @FXML
     public V obForm;
@@ -59,7 +59,7 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
         updateTitle();
     }
 
-    protected abstract void fillForm();
+    protected abstract void fillForm() throws Throwable;
 
     private void updateTitle() {
         if (this.stage == null) return;
@@ -81,9 +81,13 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
             if (!beforeClose()) e.consume();
         });
 
-        fillForm();
-        this.isModified = false;
-        setUpStage();
+        try {
+            fillForm();
+            this.isModified = false;
+            setUpStage();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     @Override
@@ -95,15 +99,6 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
     public void open(UpdateNotifier updateNotifier) {
         this.updateNotifier = updateNotifier;
         open();
-    }
-
-    @Override
-    public void read() {
-        if (object.getId() == null) return;
-
-        //todo: object should be the same
-        object = service.findById(object.getId()).orElse(null);
-        fillForm();
     }
 
     @Override
@@ -119,7 +114,7 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
     }
 
     @Override
-    public void open(ResultNotifier resultNotifier) {
+    public void open(ResultNotifier<O> resultNotifier) {
         this.resultNotifier = resultNotifier;
         open();
     }

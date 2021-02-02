@@ -15,18 +15,20 @@ import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.gui.utils.DialogUtils;
 import ru.flendger.schoollib2.model.operation.Invention;
 import ru.flendger.schoollib2.model.operation.item.InventionItem;
+import ru.flendger.schoollib2.services.operation.InventionService;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class InventionController extends AbstractOperationController<Invention, BorderPane> implements Initializable {
+public class InventionController extends AbstractOperationController<Invention, InventionItem, BorderPane, InventionService> implements Initializable {
 
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
@@ -67,7 +69,9 @@ public class InventionController extends AbstractOperationController<Invention, 
     }
 
     @Override
-    protected void fillForm() {
+    protected void fillForm() throws Throwable {
+        super.fillForm();
+
         numberField.setText(String.valueOf(object.getNumber()));
         dateField.setText(dtf.format(object.getDate()));
         commentField.setText(object.getComment());

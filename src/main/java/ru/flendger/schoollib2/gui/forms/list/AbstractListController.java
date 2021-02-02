@@ -26,7 +26,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
     @Autowired
     protected FormUtils objectFormLoader;
     protected Stage stage;
-    protected ResultNotifier resultNotifier;
+    protected ResultNotifier<O> resultNotifier;
     protected boolean selectedMode;
 
     @FXML
@@ -72,7 +72,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
     }
 
     @Override
-    public void open(ResultNotifier resultNotifier) {
+    public void open(ResultNotifier<O> resultNotifier) {
         this.resultNotifier = resultNotifier;
         this.selectedMode = true;
         open();
@@ -83,6 +83,13 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
         dataTable.getItems().clear();
         dataTable.getItems().addAll(service.findAllExcludeDeleted());
         dataTable.sort();
+    }
+
+    private void updateRow(O object) {
+        if (object == null) return;
+
+        dataTable.getItems().replaceAll(item -> item.getId().equals((object).getId()) ? object : item);
+        dataTable.refresh();
     }
 
     @Override
@@ -100,7 +107,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
                 //  fill formId when getDbObjectForm: id = class + id
                 //  ??? where should store info about opened and closed forms ???
 
-                objectFormLoader.getDbObjectForm(object, getWindow()).open(dataTable::refresh);
+                objectFormLoader.getDbObjectForm(object, getWindow()).open(this::updateRow);
             }
         } catch (IOException e) {
             e.printStackTrace();

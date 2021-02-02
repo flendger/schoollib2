@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.catalog.Publisher;
+import ru.flendger.schoollib2.services.catalog.PublisherService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class PublisherController extends AbstractCatalogController<Publisher, BorderPane> implements Initializable {
+public class PublisherController extends AbstractCatalogController<Publisher, BorderPane, PublisherService> implements Initializable {
 
     @FXML
     public TextField codeField;
@@ -29,7 +30,10 @@ public class PublisherController extends AbstractCatalogController<Publisher, Bo
         nameField.textProperty().addListener((observable, oldValue, newValue) -> fieldChanged());
     }
 
-    protected void fillForm() {
+    @Override
+    protected void fillForm() throws Throwable {
+        super.fillForm();
+
         codeField.setText(String.valueOf(object.getCode()));
         nameField.setText(object.getName());
     }

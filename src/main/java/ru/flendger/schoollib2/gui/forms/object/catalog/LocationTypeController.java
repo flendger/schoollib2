@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.catalog.LocationType;
+import ru.flendger.schoollib2.services.catalog.LocationTypeService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class LocationTypeController extends AbstractCatalogController<LocationType, BorderPane> implements Initializable {
+public class LocationTypeController extends AbstractCatalogController<LocationType, BorderPane, LocationTypeService> implements Initializable {
 
     @FXML
     public TextField codeField;
@@ -29,7 +30,10 @@ public class LocationTypeController extends AbstractCatalogController<LocationTy
         nameField.textProperty().addListener((observable, oldValue, newValue) -> fieldChanged());
     }
 
-    protected void fillForm() {
+    @Override
+    protected void fillForm() throws Throwable {
+        super.fillForm();
+
         codeField.setText(String.valueOf(object.getCode()));
         nameField.setText(object.getName());
     }

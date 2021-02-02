@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.catalog.Location;
 import ru.flendger.schoollib2.model.catalog.LocationType;
 import ru.flendger.schoollib2.model.catalog.Person;
+import ru.flendger.schoollib2.services.catalog.LocationService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class LocationController extends AbstractCatalogController<Location, BorderPane> implements Initializable {
+public class LocationController extends AbstractCatalogController<Location, BorderPane, LocationService> implements Initializable {
 
     @FXML
     public TextField codeField;
@@ -34,7 +35,10 @@ public class LocationController extends AbstractCatalogController<Location, Bord
         nameField.textProperty().addListener((observable, oldValue, newValue) -> fieldChanged());
     }
 
-    protected void fillForm() {
+    @Override
+    protected void fillForm() throws Throwable {
+        super.fillForm();
+
         codeField.setText(String.valueOf(object.getCode()));
         nameField.setText(object.getName());
         if (object.getLocationType() != null) {

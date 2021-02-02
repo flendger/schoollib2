@@ -11,10 +11,9 @@ import ru.flendger.schoollib2.gui.forms.UpdateNotifier;
 import ru.flendger.schoollib2.gui.forms.object.DbObjectForm;
 import ru.flendger.schoollib2.gui.utils.DialogUtils;
 import ru.flendger.schoollib2.gui.utils.ListFormUtils;
-import ru.flendger.schoollib2.model.operation.Operation;
 import ru.flendger.schoollib2.model.operation.item.OperationItem;
 
-public abstract class AbstractOperationItemController<O extends OperationItem<? extends Operation>, V extends Pane> implements DbObjectForm<O> {
+public abstract class AbstractOperationItemController<O extends OperationItem<?>, V extends Pane> implements DbObjectForm<O> {
 
     protected String title;
     @Autowired
@@ -24,7 +23,7 @@ public abstract class AbstractOperationItemController<O extends OperationItem<? 
     protected Stage stage;
     private boolean isModified = false;
     private UpdateNotifier updateNotifier;
-    private ResultNotifier resultNotifier;
+    private ResultNotifier<O> resultNotifier;
 
     @FXML
     public V obForm;
@@ -98,14 +97,9 @@ public abstract class AbstractOperationItemController<O extends OperationItem<? 
     }
 
     @Override
-    public void open(ResultNotifier resultNotifier) {
+    public void open(ResultNotifier<O> resultNotifier) {
         this.resultNotifier = resultNotifier;
         open();
-    }
-
-    @Override
-    public void read() {
-        fillForm();
     }
 
     @Override

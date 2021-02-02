@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 import static ru.flendger.schoollib2.gui.utils.FormElementUtils.DATE_TIME_FORMATTER;
 
-public abstract class AbstractOperationListController<O extends Operation, V extends Pane> extends AbstractListController<O, V> implements ListForm<O>, Initializable {
+public abstract class AbstractOperationListController<O extends Operation<?>, V extends Pane> extends AbstractListController<O, V> implements ListForm<O>, Initializable {
 
     @FXML
     public TableColumn<O, String> commentCol;
