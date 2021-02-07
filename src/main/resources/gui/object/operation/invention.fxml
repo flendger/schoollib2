@@ -55,10 +55,10 @@
                </Label>
                 <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <GridPane.margin>
-                        <Insets top="2.0"/>
+                        <Insets top="2.0" />
                     </GridPane.margin>
-                    <TextField fx:id="locationField" editable="false" HBox.hgrow="ALWAYS"/>
-                    <Button mnemonicParsing="false" text="..." onAction="#btnSelectLocationClicked"/>
+                    <TextField fx:id="locationField" editable="false" HBox.hgrow="ALWAYS" />
+                    <Button mnemonicParsing="false" onAction="#btnSelectLocationClicked" text="..." />
                 </HBox>
                 </GridPane>
             </HBox>
@@ -96,6 +96,15 @@
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
             </TableView>
+         <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+            <children>
+               <CheckBox fx:id="acceptedBox" mnemonicParsing="false" text="Акцептовано">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </CheckBox>
+            </children>
+         </HBox>
         </VBox>
     </center>
 </BorderPane>

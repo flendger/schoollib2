@@ -3,10 +3,7 @@ package ru.flendger.schoollib2.gui.forms.object.operation;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import lombok.NoArgsConstructor;
@@ -40,14 +37,14 @@ public class InventionController extends AbstractOperationController<Invention, 
     public TableColumn<InventionItem, Integer> quantityCol;
     public TableView<InventionItem> itemsTable;
     public TextField locationField;
+    public CheckBox acceptedBox;
 
-    //todo: set empty number when new element instead null
-    //todo: add accepted to form (+ list form)
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         title = "Операция: Инветаризация";
 
         commentField.textProperty().addListener((observable, oldValue, newValue) -> fieldChanged());
+        acceptedBox.selectedProperty().addListener((observable, oldValue, newValue) -> fieldChanged());
         rowCol.setCellValueFactory(new PropertyValueFactory<>("rowNum"));
         rowCol.setStyle("-fx-alignment: CENTER-RIGHT;");
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -79,12 +76,14 @@ public class InventionController extends AbstractOperationController<Invention, 
             locationField.setText(object.getLocation().getName());
         }
         commentField.setText(object.getComment());
+        acceptedBox.setSelected(object.isAccepted());
         updateList();
     }
 
     @Override
     protected void fillObject() {
         object.setComment(commentField.getText());
+        object.setAccepted(acceptedBox.isSelected());
         object.getItems().clear();
         object.getItems().addAll(itemsTable.getItems());
     }

@@ -27,28 +27,30 @@ public class InventionService extends AbstractOperationService<Invention, Invent
     @Override
     public Invention save(Invention obj) {
         //todo: storage should be written only if obj isAccepted or delete storage entities
-        List<LocationStorageEntity> locationStorageEntities;
-        if (obj.getId() == null) {
-            locationStorageEntities = new ArrayList<>();
-        } else {
-            Optional<Invention> o = findById(obj.getId());
-            if (o.isPresent()) {
-                locationStorageEntities = o.get().getLocationStorageEntities();
-                Hibernate.initialize(locationStorageEntities);
-                locationStorageEntities.clear();
-            } else {
+        if (obj.isAccepted()) {
+            List<LocationStorageEntity> locationStorageEntities;
+            if (obj.getId() == null) {
                 locationStorageEntities = new ArrayList<>();
+            } else {
+                Optional<Invention> o = findById(obj.getId());
+                if (o.isPresent()) {
+                    locationStorageEntities = o.get().getLocationStorageEntities();
+                    Hibernate.initialize(locationStorageEntities);
+                    locationStorageEntities.clear();
+                } else {
+                    locationStorageEntities = new ArrayList<>();
+                }
             }
+            obj.setLocationStorageEntities(locationStorageEntities);
+            obj.getItems().forEach(inventionItem -> {
+                LocationStorageEntity newEntity = new LocationStorageEntity();
+                newEntity.setBook(inventionItem.getBook());
+                newEntity.setLocation(obj.getLocation());
+                newEntity.setQuantity(inventionItem.getQuantity());
+                newEntity.setDate(obj.getDate());
+                locationStorageEntities.add(newEntity);
+            });
         }
-        obj.setLocationStorageEntities(locationStorageEntities);
-        obj.getItems().forEach(inventionItem -> {
-            LocationStorageEntity newEntity = new LocationStorageEntity();
-            newEntity.setBook(inventionItem.getBook());
-            newEntity.setLocation(obj.getLocation());
-            newEntity.setQuantity(inventionItem.getQuantity());
-            newEntity.setDate(obj.getDate());
-            locationStorageEntities.add(newEntity);
-        });
 
         if (obj.getDate() == null) {
             obj.setDate(LocalDateTime.now());
