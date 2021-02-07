@@ -19,6 +19,7 @@ public abstract class AbstractOperationController<O extends Operation<I>, I exte
     @Override
     protected void fillForm() throws Throwable{
         Integer id = object.getId();
+        if (id == null) return;
         object = service.findByIdWithItems(id).orElseThrow(() -> new NoSuchElementException(String.format("ID [%d] not found", id)));
     }
 }

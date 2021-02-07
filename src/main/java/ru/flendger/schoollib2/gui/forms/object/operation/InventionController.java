@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -29,7 +28,6 @@ import java.util.concurrent.atomic.AtomicReference;
 @Scope("prototype")
 @NoArgsConstructor
 public class InventionController extends AbstractOperationController<Invention, InventionItem, BorderPane, InventionService> implements Initializable {
-
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     @FXML
@@ -41,7 +39,9 @@ public class InventionController extends AbstractOperationController<Invention, 
     public TableColumn<InventionItem, Integer> quantityCol;
     public TableView<InventionItem> itemsTable;
 
-
+    //todo: add location to form
+    //todo: set empty number when new element instead null
+    //todo: add accepted to form (+ list form)
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         title = "Операция: Инветаризация";
