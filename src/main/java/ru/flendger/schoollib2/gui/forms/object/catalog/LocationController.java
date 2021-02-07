@@ -70,18 +70,18 @@ public class LocationController extends AbstractCatalogController<Location, Bord
         }
     }
 
-    private void onLocationTypeChanged(Object o) {
+    private void onLocationTypeChanged(LocationType o) {
         if (o == null) return;
 
-        object.setLocationType((LocationType) o);
+        object.setLocationType(o);
         locationTypeField.setText(object.getLocationType().getName());
         fieldChanged();
     }
 
-    private void onPersonChanged(Object o) {
+    private void onPersonChanged(Person o) {
         if (o == null) return;
 
-        object.setPerson((Person) o);
+        object.setPerson(o);
         personField.setText(object.getPerson().getName());
         fieldChanged();
     }

@@ -106,10 +106,10 @@ public class BookController extends AbstractCatalogController<Book, BorderPane, 
         }
     }
 
-    private void onBookTypeChanged(Object o) {
+    private void onBookTypeChanged(BookType o) {
         if (o == null) return;
 
-        object.setBookType((BookType) o);
+        object.setBookType(o);
         bookTypeField.setText(object.getBookType().getName());
         fieldChanged();
     }
@@ -122,10 +122,10 @@ public class BookController extends AbstractCatalogController<Book, BorderPane, 
         }
     }
 
-    private void onPublisherChanged(Object o) {
+    private void onPublisherChanged(Publisher o) {
         if (o == null) return;
 
-        object.setPublisher((Publisher) o);
+        object.setPublisher(o);
         publisherField.setText(object.getPublisher().getName());
         fieldChanged();
     }
@@ -138,10 +138,10 @@ public class BookController extends AbstractCatalogController<Book, BorderPane, 
         }
     }
 
-    private void onOwnerChanged(Object o) {
+    private void onOwnerChanged(Owner o) {
         if (o == null) return;
 
-        object.setOwner((Owner) o);
+        object.setOwner(o);
         ownerField.setText(object.getOwner().getName());
         fieldChanged();
     }
@@ -154,10 +154,10 @@ public class BookController extends AbstractCatalogController<Book, BorderPane, 
         }
     }
 
-    private void onSubjectChanged(Object o) {
+    private void onSubjectChanged(Subject o) {
         if (o == null) return;
 
-        object.setSubject((Subject) o);
+        object.setSubject(o);
         subjectField.setText(object.getSubject().getName());
         fieldChanged();
     }

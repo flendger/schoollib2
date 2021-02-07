@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.gui.utils.DialogUtils;
+import ru.flendger.schoollib2.model.catalog.Location;
 import ru.flendger.schoollib2.model.operation.Invention;
 import ru.flendger.schoollib2.model.operation.item.InventionItem;
 import ru.flendger.schoollib2.services.operation.InventionService;
@@ -38,8 +39,8 @@ public class InventionController extends AbstractOperationController<Invention, 
     public TableColumn<InventionItem, String> bookCol;
     public TableColumn<InventionItem, Integer> quantityCol;
     public TableView<InventionItem> itemsTable;
+    public TextField locationField;
 
-    //todo: add location to form
     //todo: set empty number when new element instead null
     //todo: add accepted to form (+ list form)
     @Override
@@ -74,6 +75,9 @@ public class InventionController extends AbstractOperationController<Invention, 
 
         numberField.setText(String.valueOf(object.getNumber()));
         dateField.setText(dtf.format(object.getDate()));
+        if (object.getLocation() != null) {
+            locationField.setText(object.getLocation().getName());
+        }
         commentField.setText(object.getComment());
         updateList();
     }
@@ -83,6 +87,15 @@ public class InventionController extends AbstractOperationController<Invention, 
         object.setComment(commentField.getText());
         object.getItems().clear();
         object.getItems().addAll(itemsTable.getItems());
+    }
+
+    @Override
+    public void btnOkClicked() {
+        if (isModified && object.getLocation() == null) {
+            DialogUtils.showError("Ошибка сохранения объекта", "Необходимо заполнить Место храения", "", stage);
+            return;
+        }
+        super.btnOkClicked();
     }
 
     private void updateList() {
@@ -149,5 +162,21 @@ public class InventionController extends AbstractOperationController<Invention, 
 
     public void refreshItemsAction() {
         itemsTable.refresh();
+    }
+
+    public void btnSelectLocationClicked() {
+        try {
+            listFormLoader.getCatalogListForm(Location.class, stage).open(this::onLocationChanged);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void onLocationChanged(Location location) {
+        if (location == null) return;
+
+        object.setLocation(location);
+        locationField.setText(location.getName());
+        fieldChanged();
     }
 }

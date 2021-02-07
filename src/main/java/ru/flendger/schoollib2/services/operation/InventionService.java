@@ -44,8 +44,7 @@ public class InventionService extends AbstractOperationService<Invention, Invent
         obj.getItems().forEach(inventionItem -> {
             LocationStorageEntity newEntity = new LocationStorageEntity();
             newEntity.setBook(inventionItem.getBook());
-            //todo: add location to storage entity
-//            newEntity.setLocation(locationStorageEntities.get(0).getLocation());
+            newEntity.setLocation(obj.getLocation());
             newEntity.setQuantity(inventionItem.getQuantity());
             newEntity.setDate(obj.getDate());
             locationStorageEntities.add(newEntity);

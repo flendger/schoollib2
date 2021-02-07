@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="obForm" prefHeight="450.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ru.flendger.schoollib2.gui.forms.object.operation.InventionController">
+<BorderPane fx:id="obForm" prefHeight="511.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.flendger.schoollib2.gui.forms.object.operation.InventionController">
     <bottom>
-        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="703.0" BorderPane.alignment="CENTER">
             <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnCancelClicked" prefWidth="71.0" text="Отмена" />
             <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#btnOkClicked" prefWidth="71.0" text="OK" />
         </ToolBar>
@@ -29,6 +28,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                     </rowConstraints>
                     <Label minWidth="130.0" text="Номер:" GridPane.hgrow="NEVER">
                         <font>
@@ -40,14 +40,26 @@
                             <Font size="16.0" />
                         </font>
                     </Label>
-                    <Label minWidth="130.0" text="Комментарий:" GridPane.hgrow="NEVER" GridPane.rowIndex="2">
+                    <Label minWidth="130.0" text="Комментарий:" GridPane.hgrow="NEVER" GridPane.rowIndex="3">
                         <font>
                             <Font size="16.0" />
                         </font>
                     </Label>
                     <TextField fx:id="numberField" editable="false" maxWidth="135.0" minWidth="135.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
                     <TextField fx:id="dateField" editable="false" maxWidth="135.0" minWidth="135.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
-                    <TextField fx:id="commentField" minWidth="335.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                    <TextField fx:id="commentField" minWidth="335.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+               <Label layoutX="10.0" layoutY="12.0" minWidth="130.0" text="Место хранения:" GridPane.rowIndex="2">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </Label>
+                <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets top="2.0"/>
+                    </GridPane.margin>
+                    <TextField fx:id="locationField" editable="false" HBox.hgrow="ALWAYS"/>
+                    <Button mnemonicParsing="false" text="..." onAction="#btnSelectLocationClicked"/>
+                </HBox>
                 </GridPane>
             </HBox>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
