@@ -41,6 +41,7 @@ public class InventionController extends AbstractOperationController<Invention, 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //todo: form should be read-only if isAccepted
         title = "Операция: Инветаризация";
 
         commentField.textProperty().addListener((observable, oldValue, newValue) -> fieldChanged());

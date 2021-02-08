@@ -3,6 +3,7 @@ package ru.flendger.schoollib2.services.storage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.flendger.schoollib2.model.storage.LocationStorageBalanceItem;
+import ru.flendger.schoollib2.model.storage.LocationStorageEntity;
 import ru.flendger.schoollib2.repositories.storage.LocationStorageRepository;
 
 import java.time.LocalDateTime;
@@ -19,5 +20,13 @@ public class LocationStorageService {
                 .stream()
                 .map(row -> new LocationStorageBalanceItem((Object[]) row))
                 .collect(Collectors.toList());
+    }
+
+    public void deleteAll(Iterable<LocationStorageEntity> iterable) {
+        locationStorageRepository.deleteAll(iterable);
+    }
+
+    public void flush() {
+        locationStorageRepository.flush();
     }
 }

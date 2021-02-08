@@ -15,4 +15,9 @@ public interface LocationStorageRepository extends JpaRepository<LocationStorage
             value = "select ls.book, ls.location, sum(ls.quantity) from LocationStorageEntity as ls where ls.date <= :date group by ls.book, ls.location"
     )
     List<?> findBalanceByDate(@Param("date") LocalDateTime dateTime);
+
+//    @Query(
+//            value = "select ls.book, ls.location, sum(ls.quantity) from LocationStorageEntity as ls where ls.date <= :date group by ls.book, ls.location"
+//    )
+//    List<?> findBalanceByDateWithoutDocId(@Param("date") LocalDateTime dateTime, @Param("doc_id") Integer docId);
 }
