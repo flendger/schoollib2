@@ -102,11 +102,6 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
                 }
                 stage.close();
             } else {
-                //todo: do not open form of the same object, should activate existing form
-                //  add formId to ObjectForm
-                //  fill formId when getDbObjectForm: id = class + id
-                //  ??? where should store info about opened and closed forms ???
-
                 objectFormLoader.getDbObjectForm(object, getWindow()).open(this::updateRow);
             }
         } catch (IOException e) {

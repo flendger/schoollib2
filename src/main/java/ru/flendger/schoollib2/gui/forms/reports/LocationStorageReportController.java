@@ -29,10 +29,7 @@ public class LocationStorageReportController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    private void printReport() {
-        //todo: delete all storage entities when deleting document
-        //todo: invention list - refresh list after add new doc
-        //todo: добавить группировки и итоги по МХ
+    public void printReport() {
         try {
             InputStream resource = getClass().getClassLoader().getResourceAsStream("reports/location_storage.jrxml");
 
@@ -55,10 +52,5 @@ public class LocationStorageReportController implements Initializable {
         } catch (JRException e) {
             e.printStackTrace();
         }
-    }
-
-    public void getReport() {
-        printReport();
-
     }
 }
