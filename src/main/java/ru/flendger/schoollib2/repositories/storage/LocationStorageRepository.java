@@ -12,12 +12,18 @@ import java.util.List;
 @Repository
 public interface LocationStorageRepository extends JpaRepository<LocationStorageEntity, Integer> {
     @Query(
-            value = "select ls.book, ls.location, sum(ls.quantity) from LocationStorageEntity as ls where ls.date <= :date group by ls.book, ls.location"
+            value = "select ls.book, ls.location, sum(ls.quantity) from LocationStorageEntity as ls " +
+                    "where ls.date <= :date " +
+                    "group by ls.book, ls.location having sum(ls.quantity) > 0 " +
+                    "order by ls.location.name, ls.book.name"
     )
     List<?> findBalanceByDate(@Param("date") LocalDateTime dateTime);
 
-//    @Query(
-//            value = "select ls.book, ls.location, sum(ls.quantity) from LocationStorageEntity as ls where ls.date <= :date group by ls.book, ls.location"
-//    )
-//    List<?> findBalanceByDateWithoutDocId(@Param("date") LocalDateTime dateTime, @Param("doc_id") Integer docId);
+    @Query(
+            value = "select ls.book, ls.location, sum(ls.quantity) from LocationStorageEntity as ls " +
+                    "where ls.date <= :date and ls.location.id = :location_id " +
+                    "group by ls.book, ls.location having sum(ls.quantity) > 0 " +
+                    "order by ls.location.name, ls.book.name"
+    )
+    List<?> findBalanceByDateAndLocationId(@Param("date") LocalDateTime dateTime, @Param("location_id") Integer locationId);
 }

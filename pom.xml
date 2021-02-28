@@ -54,8 +54,21 @@
 
 		<dependency>
 			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>15.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>13</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.16.0</version>
 		</dependency>
 	</dependencies>
 

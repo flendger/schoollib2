@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
+
+<VBox prefHeight="394.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.flendger.schoollib2.gui.forms.reports.LocationStorageReportController">
+    <ButtonBar nodeOrientation="RIGHT_TO_LEFT" VBox.vgrow="NEVER">
+      <buttons>
+          <Button mnemonicParsing="false" onAction="#getReport" text="Сформировать" />
+      </buttons>
+      <VBox.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </VBox.margin>
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+    </ButtonBar>
+    <WebView fx:id="webField" VBox.vgrow="ALWAYS" />
+</VBox>

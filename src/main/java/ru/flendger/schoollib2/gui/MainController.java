@@ -8,9 +8,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.flendger.schoollib2.gui.forms.reports.LocationStorageReportController;
 import ru.flendger.schoollib2.gui.utils.ListFormUtils;
+import ru.flendger.schoollib2.gui.utils.ReportFormUtils;
 import ru.flendger.schoollib2.model.catalog.*;
 import ru.flendger.schoollib2.model.operation.Invention;
+import ru.flendger.schoollib2.services.storage.LocationStorageService;
 
 import java.net.URL;
 import java.util.Optional;
@@ -21,11 +24,14 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     private final ListFormUtils listFormLoader;
+    private final ReportFormUtils reportFormUtils;
+
+    private final LocationStorageService locationStorageService;
 
     @FXML
     TreeItem<String> cmdBookTypes, cmdBooks, cmdLocations,
             cmdOwners, cmdPublishers, cmdSubjects, cmdLocationTypes, cmdPeople,
-            cmdInvention;
+            cmdInvention, cmdLocationStorageReport;
 
     @FXML
     TabPane tabPane;
@@ -72,6 +78,8 @@ public class MainController implements Initializable {
                 root = listFormLoader.getRoot(LocationType.class);
             } else if (cmdInvention.equals(itemClicked)) {
                 root = listFormLoader.getRoot(Invention.class);
+            } else if (cmdLocationStorageReport.equals(itemClicked)) {
+                root = reportFormUtils.getRoot(LocationStorageReportController.class);
             }
             Tab tab = new Tab(id, root);
             tab.setId(id);

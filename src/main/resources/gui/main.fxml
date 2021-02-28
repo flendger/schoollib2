@@ -37,6 +37,11 @@
                                 <TreeItem value="Инвентаризация" fx:id="cmdInvention"/>
                             </children>
                         </TreeItem>
+                        <TreeItem value="Отчеты" expanded="true">
+                            <children>
+                                <TreeItem value="Остатки книг" fx:id="cmdLocationStorageReport"/>
+                            </children>
+                        </TreeItem>
                     </children>
                 </TreeItem>
         </TreeView>

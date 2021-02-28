@@ -22,6 +22,13 @@ public class LocationStorageService {
                 .collect(Collectors.toList());
     }
 
+    public List<LocationStorageBalanceItem> findBalanceByDateAndLocationId(LocalDateTime dateTime, Integer locationId) {
+        return locationStorageRepository.findBalanceByDateAndLocationId(dateTime, locationId)
+                .stream()
+                .map(row -> new LocationStorageBalanceItem((Object[]) row))
+                .collect(Collectors.toList());
+    }
+
     public void deleteAll(Iterable<LocationStorageEntity> iterable) {
         locationStorageRepository.deleteAll(iterable);
     }

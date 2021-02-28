@@ -54,7 +54,7 @@ public class InventionService extends AbstractOperationService<Invention, Invent
                 }
             }
 
-            locationStorageService.findBalanceByDate(obj.getDate()).forEach(row -> {
+            locationStorageService.findBalanceByDateAndLocationId(obj.getDate(), obj.getLocation().getId()).forEach(row -> {
                 LocationStorageEntity newEntity = new LocationStorageEntity();
                 newEntity.setBook(row.getBook());
                 newEntity.setLocation(row.getLocation());
