@@ -41,11 +41,11 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
         dataTable.setRowFactory(tr -> {
             TableRow<O> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     openElement(row.getItem());
                 }
             });
-            return row ;
+            return row;
         });
 
         updateList();
@@ -88,7 +88,15 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
     private void updateRow(O object) {
         if (object == null) return;
 
-        dataTable.getItems().replaceAll(item -> item.getId().equals((object).getId()) ? object : item);
+        if (dataTable.getItems()
+                .stream()
+                .anyMatch(item -> item.getId().equals(object.getId()))) {
+            dataTable.getItems().replaceAll(item -> item.getId().equals((object).getId()) ? object : item);
+        } else {
+            dataTable.getItems().add(object);
+        }
+
+        dataTable.sort();
         dataTable.refresh();
     }
 
@@ -143,7 +151,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
         O object = getCurrent();
         if (object == null) return;
 
-        if (! DialogUtils.showConfirmation("Удаление элемента", "Удалить текущий элемент?", "", getWindow())) {
+        if (!DialogUtils.showConfirmation("Удаление элемента", "Удалить текущий элемент?", "", getWindow())) {
             return;
         }
 
