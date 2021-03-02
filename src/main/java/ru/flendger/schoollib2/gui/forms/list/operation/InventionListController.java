@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.operation.Invention;
+import ru.flendger.schoollib2.services.operation.InventionService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +15,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class InventionListController extends AbstractOperationListController<Invention, VBox> {
+public class InventionListController extends AbstractOperationListController<Invention, VBox, InventionService> {
     public TableColumn<Invention, String> locationCol;
 
     @Override

@@ -13,6 +13,7 @@ public abstract class AbstractCatalogController<O extends Catalog, V extends Pan
     @Override
     protected void fillForm() throws Throwable{
         Integer id = object.getId();
+        if (id == null) return;
         object = service.findById(id).orElseThrow(() -> new NoSuchElementException(String.format("ID [%d] not found", id)));
     }
 }

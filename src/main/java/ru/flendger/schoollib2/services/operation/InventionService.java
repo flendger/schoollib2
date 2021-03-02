@@ -35,25 +35,25 @@ public class InventionService extends AbstractOperationService<Invention, Invent
             obj.setDate(LocalDateTime.now());
         }
 
-        if (obj.isAccepted()) {
-            List<LocationStorageEntity> locationStorageEntities;
-            if (obj.getId() == null) {
-                locationStorageEntities = new ArrayList<>();
+        List<LocationStorageEntity> locationStorageEntities;
+        if (obj.getId() == null) {
+            locationStorageEntities = new ArrayList<>();
+        } else {
+            Optional<Invention> o = findById(obj.getId());
+            if (o.isPresent()) {
+                locationStorageEntities = o.get().getLocationStorageEntities();
+                Hibernate.initialize(locationStorageEntities);
+
+                locationStorageService.deleteAll(locationStorageEntities);
+                locationStorageService.flush();
+
+                locationStorageEntities.clear();
             } else {
-                Optional<Invention> o = findById(obj.getId());
-                if (o.isPresent()) {
-                    locationStorageEntities = o.get().getLocationStorageEntities();
-                    Hibernate.initialize(locationStorageEntities);
-
-                    locationStorageService.deleteAll(locationStorageEntities);
-                    locationStorageService.flush();
-
-                    locationStorageEntities.clear();
-                } else {
-                    locationStorageEntities = new ArrayList<>();
-                }
+                locationStorageEntities = new ArrayList<>();
             }
+        }
 
+        if (obj.isAccepted() && !obj.isDeleted()) {
             locationStorageService.findBalanceByDateAndLocationId(obj.getDate(), obj.getLocation().getId()).forEach(row -> {
                 LocationStorageEntity newEntity = new LocationStorageEntity();
                 newEntity.setBook(row.getBook());
@@ -63,7 +63,6 @@ public class InventionService extends AbstractOperationService<Invention, Invent
                 locationStorageEntities.add(newEntity);
             });
 
-            obj.setLocationStorageEntities(locationStorageEntities);
             obj.getItems().forEach(inventionItem -> {
                 LocationStorageEntity newEntity = new LocationStorageEntity();
                 newEntity.setBook(inventionItem.getBook());
@@ -73,6 +72,7 @@ public class InventionService extends AbstractOperationService<Invention, Invent
                 locationStorageEntities.add(newEntity);
             });
         }
+        obj.setLocationStorageEntities(locationStorageEntities);
 
         return super.save(obj);
     }

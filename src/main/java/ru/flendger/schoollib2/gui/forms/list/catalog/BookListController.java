@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class BookListController extends AbstractCatalogListController<Book, VBox> {
+public class BookListController extends AbstractCatalogListController<Book, VBox, BookService> {
     public TableColumn<Book, String> publisherCol, authorCol, subjectCol, classCol, bookTypeCol;
     public TableColumn<Book, Integer> yearCol;
 

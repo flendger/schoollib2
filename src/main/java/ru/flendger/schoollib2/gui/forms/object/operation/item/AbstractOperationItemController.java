@@ -6,12 +6,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.flendger.schoollib2.gui.forms.ResultNotifier;
-import ru.flendger.schoollib2.gui.forms.UpdateNotifier;
 import ru.flendger.schoollib2.gui.forms.object.DbObjectForm;
 import ru.flendger.schoollib2.gui.utils.DialogUtils;
 import ru.flendger.schoollib2.gui.utils.ListFormUtils;
 import ru.flendger.schoollib2.model.operation.item.OperationItem;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public abstract class AbstractOperationItemController<O extends OperationItem<?>, V extends Pane> implements DbObjectForm<O> {
 
@@ -22,8 +23,8 @@ public abstract class AbstractOperationItemController<O extends OperationItem<?>
     protected O object;
     protected Stage stage;
     private boolean isModified = false;
-    private UpdateNotifier updateNotifier;
-    private ResultNotifier<O> resultNotifier;
+    private Supplier<Void> updateNotifier;
+    private Consumer<O> resultNotifier;
 
     @FXML
     public V obForm;
@@ -91,13 +92,13 @@ public abstract class AbstractOperationItemController<O extends OperationItem<?>
     }
 
     @Override
-    public void open(UpdateNotifier updateNotifier) {
+    public void open(Supplier<Void> updateNotifier) {
         this.updateNotifier = updateNotifier;
         open();
     }
 
     @Override
-    public void open(ResultNotifier<O> resultNotifier) {
+    public void open(Consumer<O> resultNotifier) {
         this.resultNotifier = resultNotifier;
         open();
     }
@@ -106,10 +107,10 @@ public abstract class AbstractOperationItemController<O extends OperationItem<?>
     public void update() {
         fillObject();
         if (updateNotifier != null) {
-            updateNotifier.notifyForm();
+            updateNotifier.get();
         }
         if (resultNotifier != null) {
-            resultNotifier.notifyForm(object);
+            resultNotifier.accept(object);
         }
     }
 }

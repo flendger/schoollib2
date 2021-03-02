@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.catalog.Publisher;
+import ru.flendger.schoollib2.services.catalog.PublisherService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +13,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class PublisherListController extends AbstractCatalogListController<Publisher, VBox> {
+public class PublisherListController extends AbstractCatalogListController<Publisher, VBox, PublisherService> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         title = "Справочник: Издательства";

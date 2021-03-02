@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -38,7 +39,10 @@ public class LocationStorageReportController implements Initializable {
 
             Map<String, Object> parameters = new HashMap<>();
 
-            List<LocationStorageBalanceItem> dataBeanList = locationStorageService.findBalanceByDate(LocalDateTime.now());
+            List<LocationStorageBalanceItem> dataBeanList = locationStorageService.findBalanceByDate(LocalDateTime.now())
+                                                                                                        .stream()
+                                                                                                        .filter(item -> item.getQuantity() != 0)
+                                                                                                        .collect(Collectors.toList());
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
 
             JasperPrint jasperPrint   = JasperFillManager.fillReport(jasperReport,

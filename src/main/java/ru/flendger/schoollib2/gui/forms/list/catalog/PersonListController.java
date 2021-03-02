@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.catalog.Person;
+import ru.flendger.schoollib2.services.catalog.PersonService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class PersonListController extends AbstractCatalogListController<Person, VBox> {
+public class PersonListController extends AbstractCatalogListController<Person, VBox, PersonService> {
 
     @FXML
     public TableColumn<Person, String> phoneCol, mailCol, addrCol;

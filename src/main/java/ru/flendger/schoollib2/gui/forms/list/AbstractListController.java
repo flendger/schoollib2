@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.flendger.schoollib2.gui.forms.ResultNotifier;
 import ru.flendger.schoollib2.gui.utils.DialogUtils;
 import ru.flendger.schoollib2.gui.utils.FormUtils;
 import ru.flendger.schoollib2.model.DbObjectNonDeleted;
@@ -17,16 +16,17 @@ import ru.flendger.schoollib2.services.CrudNonDeletedObjectsService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
-public abstract class AbstractListController<O extends DbObjectNonDeleted, V extends Pane> implements ListForm<O>, Initializable {
+public abstract class AbstractListController<O extends DbObjectNonDeleted, V extends Pane, S extends CrudNonDeletedObjectsService<O>> implements ListForm<O>, Initializable {
 
     protected String title;
     @Autowired
-    protected CrudNonDeletedObjectsService<O> service;
+    protected S service;
     @Autowired
     protected FormUtils objectFormLoader;
     protected Stage stage;
-    protected ResultNotifier<O> resultNotifier;
+    protected Consumer<O> resultNotifier;
     protected boolean selectedMode;
 
     @FXML
@@ -72,7 +72,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
     }
 
     @Override
-    public void open(ResultNotifier<O> resultNotifier) {
+    public void open(Consumer<O> resultNotifier) {
         this.resultNotifier = resultNotifier;
         this.selectedMode = true;
         open();
@@ -98,7 +98,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
         try {
             if (selectedMode) {
                 if (resultNotifier != null) {
-                    resultNotifier.notifyForm(object);
+                    resultNotifier.accept(object);
                 }
                 stage.close();
             } else {

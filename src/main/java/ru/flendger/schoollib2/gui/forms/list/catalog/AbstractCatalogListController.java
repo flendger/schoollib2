@@ -8,11 +8,12 @@ import javafx.scene.layout.Pane;
 import ru.flendger.schoollib2.gui.forms.list.AbstractListController;
 import ru.flendger.schoollib2.gui.forms.list.ListForm;
 import ru.flendger.schoollib2.model.catalog.Catalog;
+import ru.flendger.schoollib2.services.CrudNonDeletedObjectsService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public abstract class AbstractCatalogListController<O extends Catalog, V extends Pane> extends AbstractListController<O, V> implements ListForm<O>, Initializable {
+public abstract class AbstractCatalogListController<O extends Catalog, V extends Pane, S extends CrudNonDeletedObjectsService<O>> extends AbstractListController<O, V, S> implements ListForm<O>, Initializable {
 
     @FXML
     public TableColumn<O, String> nameCol;

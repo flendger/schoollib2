@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import ru.flendger.schoollib2.gui.forms.list.AbstractListController;
 import ru.flendger.schoollib2.gui.forms.list.ListForm;
 import ru.flendger.schoollib2.model.operation.Operation;
+import ru.flendger.schoollib2.services.CrudNonDeletedObjectsService;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 
 import static ru.flendger.schoollib2.gui.utils.FormElementUtils.DATE_TIME_FORMATTER;
 
-public abstract class AbstractOperationListController<O extends Operation<?>, V extends Pane> extends AbstractListController<O, V> implements ListForm<O>, Initializable {
+public abstract class AbstractOperationListController<O extends Operation<?>, V extends Pane, S extends CrudNonDeletedObjectsService<O>> extends AbstractListController<O, V, S> implements ListForm<O>, Initializable {
 
     @FXML
     public TableColumn<O, String> commentCol;

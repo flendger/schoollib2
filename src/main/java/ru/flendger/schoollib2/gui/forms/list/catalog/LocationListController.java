@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.flendger.schoollib2.model.catalog.Location;
+import ru.flendger.schoollib2.services.catalog.LocationService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 @Component
 @Scope("prototype")
 @NoArgsConstructor
-public class LocationListController extends AbstractCatalogListController<Location, VBox> {
+public class LocationListController extends AbstractCatalogListController<Location, VBox, LocationService> {
 
     @FXML
     TableColumn<Location, String> personCol, locationTypeCol;

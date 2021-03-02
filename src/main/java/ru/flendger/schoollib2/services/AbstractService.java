@@ -15,6 +15,7 @@ public abstract class AbstractService<T extends DbObject, R extends JpaRepositor
 
     @Override
     public Optional<T> findById(Integer id) {
+        if (id == null) return Optional.empty();
         return repository.findById(id);
     }
 

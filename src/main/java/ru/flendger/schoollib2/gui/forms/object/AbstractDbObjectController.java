@@ -5,12 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.flendger.schoollib2.gui.forms.ResultNotifier;
-import ru.flendger.schoollib2.gui.forms.UpdateNotifier;
 import ru.flendger.schoollib2.gui.utils.DialogUtils;
 import ru.flendger.schoollib2.gui.utils.ListFormUtils;
 import ru.flendger.schoollib2.model.DbObjectNonDeleted;
 import ru.flendger.schoollib2.services.CrudNonDeletedObjectsService;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V extends Pane, S extends CrudNonDeletedObjectsService<O>> implements DbObjectForm<O> {
 
@@ -23,8 +24,8 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
     protected O object;
     protected Stage stage;
     protected boolean isModified = false;
-    protected UpdateNotifier updateNotifier;
-    protected ResultNotifier<O> resultNotifier;
+    protected Supplier<Void> updateNotifier;
+    protected Consumer<O> resultNotifier;
 
     @FXML
     public V obForm;
@@ -96,7 +97,7 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
     }
 
     @Override
-    public void open(UpdateNotifier updateNotifier) {
+    public void open(Supplier<Void> updateNotifier) {
         this.updateNotifier = updateNotifier;
         open();
     }
@@ -106,15 +107,15 @@ public abstract class AbstractDbObjectController<O extends DbObjectNonDeleted, V
         fillObject();
         service.save(object);
         if (updateNotifier != null) {
-            updateNotifier.notifyForm();
+            updateNotifier.get();
         }
         if (resultNotifier != null) {
-            resultNotifier.notifyForm(object);
+            resultNotifier.accept(object);
         }
     }
 
     @Override
-    public void open(ResultNotifier<O> resultNotifier) {
+    public void open(Consumer<O> resultNotifier) {
         this.resultNotifier = resultNotifier;
         open();
     }
