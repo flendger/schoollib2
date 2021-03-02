@@ -97,6 +97,7 @@ public abstract class AbstractListController<O extends DbObjectNonDeleted, V ext
         }
 
         dataTable.sort();
+        dataTable.getSelectionModel().select(dataTable.getItems().indexOf(object));
         dataTable.refresh();
     }
 
