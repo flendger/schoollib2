@@ -35,6 +35,7 @@
                         <TreeItem value="Операции" expanded="true">
                             <children>
                                 <TreeItem value="Инвентаризация" fx:id="cmdInvention"/>
+                                <TreeItem value="Поступление от издательства" fx:id="cmdReceiptFromPublisher"/>
                             </children>
                         </TreeItem>
                         <TreeItem value="Отчеты" expanded="true">

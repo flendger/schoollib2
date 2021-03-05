@@ -12,7 +12,9 @@ import ru.flendger.schoollib2.gui.forms.object.DbObjectForm;
 import ru.flendger.schoollib2.model.DbObject;
 import ru.flendger.schoollib2.model.catalog.*;
 import ru.flendger.schoollib2.model.operation.Invention;
+import ru.flendger.schoollib2.model.operation.ReceiptFromPublisher;
 import ru.flendger.schoollib2.model.operation.item.InventionItem;
+import ru.flendger.schoollib2.model.operation.item.ReceiptFromPublisherItem;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -38,6 +40,8 @@ public class FormUtils {
         resourceMap.put(Subject.class, "/gui/object/catalog/subject.fxml");
         resourceMap.put(Invention.class, "/gui/object/operation/invention.fxml");
         resourceMap.put(InventionItem.class, "/gui/object/operation/item/invention_item.fxml");
+        resourceMap.put(ReceiptFromPublisher.class, "/gui/object/operation/receipt_from_publisher.fxml");
+        resourceMap.put(ReceiptFromPublisherItem.class, "/gui/object/operation/item/receipt_from_publisher_item.fxml");
     }
 
     private <O extends DbObject> DbObjectForm<O> getForm(FXMLLoader fxmlLoader, O object, Window owner) throws IOException {

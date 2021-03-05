@@ -12,6 +12,7 @@ import ru.flendger.schoollib2.gui.forms.list.ListForm;
 import ru.flendger.schoollib2.model.DbObject;
 import ru.flendger.schoollib2.model.catalog.*;
 import ru.flendger.schoollib2.model.operation.Invention;
+import ru.flendger.schoollib2.model.operation.ReceiptFromPublisher;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class ListFormUtils {
         resourceMap.put(Publisher.class, "/gui/list/catalog/publisher_list.fxml");
         resourceMap.put(Subject.class, "/gui/list/catalog/subject_list.fxml");
         resourceMap.put(Invention.class, "/gui/list/operation/invention_list.fxml");
+        resourceMap.put(ReceiptFromPublisher.class, "/gui/list/operation/receipt_from_publisher_list.fxml");
     }
 
 
