@@ -10,5 +10,4 @@ public class Schoollib2Application {
 	public static void main(String[] args) {
 		Application.launch(ClientFxApp.class, args);
 	}
-
 }

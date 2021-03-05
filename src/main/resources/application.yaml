@@ -10,3 +10,5 @@ spring:
 
   main:
     web-application-type: none
+
+app.version: "2.1.0"
