@@ -49,7 +49,7 @@ public class LocationStorageReportController implements Initializable {
                     parameters,
                     beanColDataSource);
 
-            String tmpFile = System.getProperty("java.io.tmpdir") + "location_storage.html";
+            String tmpFile = System.getProperty("user.dir") + "location_storage.html";
             JasperExportManager.exportReportToHtmlFile(jasperPrint, tmpFile);
 
             webField.getEngine().load("file:///" + tmpFile);
